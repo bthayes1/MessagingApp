@@ -12,6 +12,8 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 
+//TODO: Add password requirements
+
 class SignUpFragment : Fragment() {
     private lateinit var listener: OnItemSelectedListener
     private lateinit var btnSignUp : Button
