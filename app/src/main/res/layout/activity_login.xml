@@ -6,54 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
 
+    <TextView
+        android:id="@+id/tvTest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_world"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="sans-serif-light"
+        android:textSize="24sp"/>
+
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentLogin"
+        android:id="@+id/fragment_container"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="home.bthayes1.navigationbar.SignInFragment"/>
-
-<!--    <com.google.android.gms.common.SignInButton-->
-<!--        android:id="@+id/btnSignIn"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="24dp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.5"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/btnSignUp" />-->
-
-<!--    <Button-->
-<!--        android:id="@+id/btnSignUp"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:text="Sign Up"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.498"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/etEnterPassword" />-->
-
-<!--    <EditText-->
-<!--        android:id="@+id/etEnterEmail"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="196dp"-->
-<!--        android:ems="10"-->
-<!--        android:inputType="textEmailAddress"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.5"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        android:hint="Enter Email"/>-->
-
-<!--    <EditText-->
-<!--        android:id="@+id/etEnterPassword"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:ems="10"-->
-<!--        android:inputType="textPassword"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/etEnterEmail"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/etEnterEmail"-->
-<!--        android:hint="Enter Password"/>-->
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/navigation"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
