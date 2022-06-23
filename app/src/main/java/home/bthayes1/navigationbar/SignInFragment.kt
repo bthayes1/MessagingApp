@@ -15,7 +15,7 @@ import androidx.navigation.fragment.findNavController
 class SignInFragment : Fragment() {
 
     companion object{
-        private const val TAG = "SignUpFragment"
+        private const val TAG = "SignInFragment"
     }
     private var binding : FragmentSignInBinding? = null
     private val sharedViewModel: LoginActivityViewModel by activityViewModels()
@@ -28,7 +28,7 @@ class SignInFragment : Fragment() {
         sharedViewModel.getLoggedStatus().observe(viewLifecycleOwner) {loggedIn ->
             Log.i(TAG, "LoggedStatus: $loggedIn")
             if (loggedIn){
-                goToMainActivity()
+                navigateToMessages()
             }
         }
         binding = fragmentBinding
@@ -43,9 +43,9 @@ class SignInFragment : Fragment() {
         }
     }
 
-    private fun goToMainActivity() {
-        Log.i(TAG, "goToMainActivity: Starting")
-        //findNavController().navigate(R.id.action_signInFragment_to_mainActivity)
+    private fun navigateToMessages() {
+        Log.i(TAG, "navigateToMessages: Starting")
+        findNavController().navigate(R.id.action_signInFragment_to_messageFragment)
     }
 
     private fun goToSignUp(){

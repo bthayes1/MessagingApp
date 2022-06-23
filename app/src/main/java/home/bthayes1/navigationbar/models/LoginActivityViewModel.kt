@@ -19,7 +19,7 @@ class LoginActivityViewModel(application: Application) : AndroidViewModel(applic
     val password = MutableLiveData<String>()
     val username = MutableLiveData<String>()
     val name = MutableLiveData<String>()
-    private val passwordAcceptable = ObservableBoolean()
+    private val passwordAcceptable = MutableLiveData<Boolean>()
 
     companion object{
         private const val TAG = "LoginActivityViewModel"
@@ -33,10 +33,11 @@ class LoginActivityViewModel(application: Application) : AndroidViewModel(applic
         password.value = ""
         username.value = ""
         name.value = ""
-        passwordAcceptable.set(true)
+        passwordAcceptable.postValue(true)
     }
-    fun getPasswordAcceptable(): Boolean{
-        return passwordAcceptable.get()
+    fun getPasswordAcceptable(): MutableLiveData<Boolean> {
+        Log.i(TAG, "getPasswordAcceptable()" )
+        return passwordAcceptable
     }
     fun getLoggedStatus(): MutableLiveData<Boolean> {
         return loggedStatus
@@ -78,6 +79,7 @@ class LoginActivityViewModel(application: Application) : AndroidViewModel(applic
     }
 
     private fun passwordCheck(password: String?): Boolean {
+        Log.i(TAG, "passwordCheck")
         val pattern : Pattern by lazy {
             Pattern.compile(
                 "^" +
@@ -91,12 +93,13 @@ class LoginActivityViewModel(application: Application) : AndroidViewModel(applic
             )
         }
         check(pattern.matcher(password ?: "").matches()){
-            passwordAcceptable.set(false)
+            passwordAcceptable.postValue(false)
+            Log.i(TAG, "Password is not valid: ${passwordAcceptable.value}")
             showMessage("Password is not valid")
             return false
         }
-        passwordAcceptable.set(true)
-        Log.i(TAG, "Everything looks good")
+        passwordAcceptable.postValue(true)
+        Log.i(TAG, "Everything looks good: ${passwordAcceptable.value}")
         return true
     }
     private fun showMessage(message: String) {

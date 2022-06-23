@@ -1,6 +1,7 @@
 package home.bthayes1.navigationbar
 
 //import androidx.navigation.fragment.NavHostFragment.findNavController
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -30,9 +31,10 @@ class SignUpFragment : Fragment() {
         sharedViewModel.getLoggedStatus().observe(viewLifecycleOwner) {loggedIn ->
             Log.i(TAG, "LoggedStatus: $loggedIn")
             if (loggedIn){
-                goToMainActivity()
+                goToMessages()
             }
         }
+
         binding = fragmentBinding
         return fragmentBinding.root
     }
@@ -42,11 +44,21 @@ class SignUpFragment : Fragment() {
         binding?.apply {
             viewModel = sharedViewModel
             tvPriorAccount.setOnClickListener { goToSignIn() }
+
+            // Show password requirements if user inputs a weak password
+            sharedViewModel.getPasswordAcceptable().observe(viewLifecycleOwner){passwordOk ->
+                Log.i(TAG, "passwordAcceptable: $passwordOk")
+                if (passwordOk){
+                    tvPasswordHint.visibility = View.GONE
+                }else{
+                    tvPasswordHint.visibility = View.VISIBLE
+                }
+            }
         }
     }
-    private fun goToMainActivity() {
+    private fun goToMessages() {
         Log.i(TAG, "goToMainActivity: Starting")
-        //findNavController().navigate(R.id.action_signUpFragment_to_mainActivity)
+        findNavController().navigate(R.id.action_signUpFragment_to_messageFragment)
     }
 
     private fun goToSignIn(){

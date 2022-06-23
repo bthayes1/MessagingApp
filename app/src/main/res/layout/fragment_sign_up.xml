@@ -27,6 +27,7 @@
             android:hint="@string/name"
             android:importantForAutofill="no"
             android:inputType="textPersonName|textCapWords"
+            android:minHeight="48dp"
             android:text="@={viewModel.name}"
             app:layout_constraintBottom_toTopOf="@id/etNewEmail"
             app:layout_constraintEnd_toEndOf="parent"
@@ -41,14 +42,14 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
             android:hint="@string/username"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:text="@={viewModel.username}"
             app:layout_constraintBottom_toTopOf="@id/etNewEmail"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/etNewName"
-            android:text="@={viewModel.username}"
-            android:importantForAutofill="no"
-            android:inputType="text"
-            />
+            app:layout_constraintTop_toBottomOf="@id/etNewName" />
 
 
         <EditText
@@ -59,13 +60,14 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
             android:hint="@string/prompt_email"
+            android:importantForAutofill="no"
             android:inputType="textEmailAddress"
+            android:minHeight="48dp"
             android:selectAllOnFocus="true"
+            android:text="@={viewModel.email}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/etNewUsername"
-            android:text="@={viewModel.email}"
-            android:importantForAutofill="no" />
+            app:layout_constraintTop_toBottomOf="@id/etNewUsername" />
 
         <EditText
             android:id="@+id/etNewPassword"
@@ -77,14 +79,16 @@
             android:hint="@string/prompt_password"
             android:imeActionLabel="@string/action_sign_in_short"
             android:imeOptions="actionDone"
+            android:importantForAutofill="no"
             android:inputType="textPassword"
+            android:minHeight="48dp"
             android:selectAllOnFocus="true"
+            android:text="@={viewModel.password}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etNewEmail"
-            android:text="@={viewModel.password}"
-            android:importantForAutofill="no" />
+            app:layout_constraintTop_toBottomOf="@+id/etNewEmail" />
         <TextView
+            android:id="@+id/tvPasswordHint"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -97,21 +101,21 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:textAlignment="center"
             android:fontFamily="sans-serif-light"
-            android:visibility="@{viewModel.passwordAcceptable ? View.GONE : View.VISIBLE}"
             />
 
         <TextView
             android:id="@+id/tvPriorAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/already_have_an_account"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_margin="16dp"
-            android:fontFamily="sans-serif-light"
-            android:textSize="16sp"
             android:clickable="true"
-            android:focusable="true" />
+            android:focusable="true"
+            android:fontFamily="sans-serif-light"
+            android:minHeight="48dp"
+            android:text="@string/already_have_an_account"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
 
         <Button
@@ -126,23 +130,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etNewPassword"
-            android:onClick="@{() -> viewModel.checkSignUpEntries()}"
-             />
-
-        <Button
-            android:id="@+id/btnSignOut"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="48dp"
-            android:layout_marginEnd="48dp"
-            android:background="@drawable/oval_button"
-            android:text="@string/sign_out"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnSignup"
-            android:onClick="@{() -> viewModel.signOut()}"
-            />
+             android:onClick="@{() -> viewModel.checkSignUpEntries()}"/>
 
         <ProgressBar
             android:id="@+id/loading"
