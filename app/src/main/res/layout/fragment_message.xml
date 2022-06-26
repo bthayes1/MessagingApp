@@ -8,6 +8,9 @@
         <import type="android.view.View" />
         <variable
             name="viewModel"
+            type="home.bthayes1.navigationbar.models.MessagesViewModel" />
+        <variable
+            name="viewModel2"
             type="home.bthayes1.navigationbar.models.LoginActivityViewModel" />
     </data>
 
@@ -32,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sign_out"
-            android:onClick="@{() -> viewModel.signOut()}"/>
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

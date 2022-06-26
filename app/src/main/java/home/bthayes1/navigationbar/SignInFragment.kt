@@ -25,8 +25,7 @@ class SignInFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val fragmentBinding = FragmentSignInBinding.inflate(inflater, container, false)
-        sharedViewModel.getLoggedStatus().observe(viewLifecycleOwner) {loggedIn ->
-            Log.i(TAG, "LoggedStatus: $loggedIn")
+        sharedViewModel.getLoggedStatus().observe(viewLifecycleOwner){loggedIn ->
             if (loggedIn){
                 navigateToMessages()
             }
@@ -40,6 +39,9 @@ class SignInFragment : Fragment() {
         binding?.apply {
             viewModel = sharedViewModel
             tvSignUp.setOnClickListener { goToSignUp() }
+            btnSignin.setOnClickListener {
+                sharedViewModel.checkSignInEntries()
+            }
         }
     }
 

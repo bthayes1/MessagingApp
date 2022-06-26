@@ -49,7 +49,8 @@
             app:layout_constraintBottom_toTopOf="@id/etNewEmail"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/etNewName" />
+            app:layout_constraintTop_toBottomOf="@id/etNewName"
+            />
 
 
         <EditText
@@ -86,7 +87,8 @@
             android:text="@={viewModel.password}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etNewEmail" />
+            app:layout_constraintTop_toBottomOf="@+id/etNewEmail"
+            />
         <TextView
             android:id="@+id/tvPasswordHint"
             android:layout_width="0dp"

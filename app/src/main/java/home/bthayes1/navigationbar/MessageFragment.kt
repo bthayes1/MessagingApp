@@ -9,36 +9,35 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import home.bthayes1.navigationbar.databinding.FragmentMessageBinding
-import home.bthayes1.navigationbar.databinding.FragmentSignUpBinding
 import home.bthayes1.navigationbar.models.LoginActivityViewModel
+import home.bthayes1.navigationbar.models.MessagesViewModel
 
 
 class MessageFragment : Fragment() {
 
     private var binding : FragmentMessageBinding? = null
-    private val sharedViewModel: LoginActivityViewModel by activityViewModels()
+    private val messageViewModel: MessagesViewModel by activityViewModels()
+    private val authViewModel: LoginActivityViewModel by activityViewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val fragmentBinding = FragmentMessageBinding.inflate(inflater, container, false)
-        sharedViewModel.getLoggedStatus().observe(viewLifecycleOwner) {loggedIn ->
-            Log.i(TAG, "LoggedStatus: $loggedIn")
-            if (!loggedIn){
-                goToSignIn()
-            }
-        }
         binding = fragmentBinding
+        Log.i(TAG, "MessageFragment: ${messageViewModel.getLoggedIn().value}")
         return fragmentBinding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding?.apply {
-            viewModel = sharedViewModel
+            viewModel = messageViewModel
+            viewModel2 = authViewModel
             btnSignOut.setOnClickListener {
-                Log.i(TAG, "btnSignOut.setOnClickListener" )
-                sharedViewModel.signOut() }
+                authViewModel.signout()
+                goToSignIn()
+            }
         }
     }
 
