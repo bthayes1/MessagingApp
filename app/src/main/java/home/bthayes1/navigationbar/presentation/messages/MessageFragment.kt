@@ -1,4 +1,4 @@
-package home.bthayes1.navigationbar
+package home.bthayes1.navigationbar.presentation.messages
 
 import android.os.Bundle
 import android.util.Log
@@ -8,9 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import home.bthayes1.navigationbar.R
 import home.bthayes1.navigationbar.databinding.FragmentMessageBinding
-import home.bthayes1.navigationbar.models.LoginActivityViewModel
-import home.bthayes1.navigationbar.models.MessagesViewModel
+import home.bthayes1.navigationbar.presentation.login.LoginActivityViewModel
 
 
 class MessageFragment : Fragment() {

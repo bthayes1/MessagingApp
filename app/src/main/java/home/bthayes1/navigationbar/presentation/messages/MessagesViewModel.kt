@@ -1,4 +1,4 @@
-package home.bthayes1.navigationbar.models
+package home.bthayes1.navigationbar.presentation.messages
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -6,8 +6,10 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.ktx.Firebase
-import home.bthayes1.navigationbar.repository.FirebaseAuthUtil
-import home.bthayes1.navigationbar.repository.FirestoreRepo
+import home.bthayes1.navigationbar.models.MessageChannel
+import home.bthayes1.navigationbar.models.User
+import home.bthayes1.navigationbar.repository.AuthenticationRepoImpl
+import home.bthayes1.navigationbar.repository.FirestoreRepoImpl
 
 class MessagesViewModel : ViewModel() {
     /**
@@ -18,8 +20,8 @@ class MessagesViewModel : ViewModel() {
      *  -list of contacts
      *  -User data class
      */
-    private val repositoryAuth = FirebaseAuthUtil()
-    private val firestoreRepo = FirestoreRepo()
+    private val repositoryAuth = AuthenticationRepoImpl()
+    private val firestoreRepoImpl = FirestoreRepoImpl()
     private val userDocument = MutableLiveData<DocumentReference>()
     private val messageChannels = MutableLiveData<List<MessageChannel>>()
     private val User = MutableLiveData<User>()
@@ -38,7 +40,7 @@ class MessagesViewModel : ViewModel() {
                 uid = currentUser.uid
             )
             User.value = user
-            userDocument.value = firestoreRepo.queryUserData(user.uid)
+            userDocument.value = firestoreRepoImpl.queryUserData(user.uid)
         } else { Log.wtf(TAG, "Why did this happen")}
     }
 

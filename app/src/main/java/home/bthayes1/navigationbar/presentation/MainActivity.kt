@@ -1,23 +1,21 @@
-package home.bthayes1.navigationbar
+package home.bthayes1.navigationbar.presentation
 
 import android.os.Bundle
 import android.util.Log
-import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import home.bthayes1.navigationbar.models.LoginActivityViewModel
+import home.bthayes1.navigationbar.R
+import home.bthayes1.navigationbar.presentation.login.LoginActivityViewModel
 
-class LoginActivity : AppCompatActivity(R.layout.activity_login) {
+class MainActivity : AppCompatActivity(R.layout.activity_login) {
     companion object{
-        private const val TAG = "LoginActivity"
+        private const val TAG = "MainActivity"
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

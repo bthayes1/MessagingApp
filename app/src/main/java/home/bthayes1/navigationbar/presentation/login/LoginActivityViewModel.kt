@@ -1,15 +1,14 @@
-package home.bthayes1.navigationbar.models
+package home.bthayes1.navigationbar.presentation.login
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.firebase.auth.ktx.auth
-import home.bthayes1.navigationbar.repository.FirebaseAuthUtil
+import home.bthayes1.navigationbar.repository.AuthenticationRepoImpl
 import java.util.regex.Pattern
 
 
 class LoginActivityViewModel : ViewModel(){
-    private val repositoryAuth: FirebaseAuthUtil = FirebaseAuthUtil()
+    private val repositoryAuth: AuthenticationRepoImpl = AuthenticationRepoImpl()
     val email = MutableLiveData<String>()
     val password = MutableLiveData<String>()
     val username = MutableLiveData<String>()

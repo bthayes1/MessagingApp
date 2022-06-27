@@ -1,4 +1,4 @@
-package home.bthayes1.navigationbar
+package home.bthayes1.navigationbar.presentation.login
 
 import android.os.Bundle
 import android.util.Log
@@ -8,8 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import home.bthayes1.navigationbar.databinding.FragmentSignInBinding
-import home.bthayes1.navigationbar.models.LoginActivityViewModel
 import androidx.navigation.fragment.findNavController
+import home.bthayes1.navigationbar.R
 
 
 class SignInFragment : Fragment() {

@@ -9,7 +9,7 @@ import com.google.firebase.ktx.Firebase
 import home.bthayes1.navigationbar.models.MessageChannel
 import home.bthayes1.navigationbar.models.User
 
-internal class FirestoreRepo {
+internal class FirestoreRepoImpl : FirestoreRepository {
     private val db = Firebase.firestore(FirebaseApp.getInstance())
 
     private val userDataLiveData = MutableLiveData<User>()
@@ -21,9 +21,9 @@ internal class FirestoreRepo {
 // Save new user data
 
     companion object{
-        private const val TAG = "FirestoreRepo"
+        private const val TAG = "FirestoreRepoImpl"
     }
-    fun queryUserData(uid: String): DocumentReference {
+    override fun queryUserData(uid: String): DocumentReference {
         // Create a reference to the users collection
         val usersRef = db.collection("users")
         // Create a query against the collection.

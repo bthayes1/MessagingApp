@@ -9,13 +9,13 @@ import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.ktx.Firebase
 
 
-internal class FirebaseAuthUtil {
+internal class AuthenticationRepoImpl : AuthenticationRepository{
     private val firebaseUserMutableLiveData: MutableLiveData<FirebaseUser?> = MutableLiveData()
     val userLoggedMutableLiveData = MutableLiveData<Boolean>()
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val authMessage: MutableLiveData<String> = MutableLiveData()
     companion object{
-        private const val TAG = "FirebaseAuthUtil"
+        private const val TAG = "AuthenticationRepoImpl"
     }
 
     init {
@@ -30,20 +30,20 @@ internal class FirebaseAuthUtil {
         }
     }
 
-    fun getAuthMessage() : MutableLiveData<String>{
+    override fun getAuthMessage() : MutableLiveData<String>{
         return authMessage
     }
 
-    fun getLoggedInStatus(): MutableLiveData<Boolean> {
+    override fun getLoggedInStatus(): MutableLiveData<Boolean> {
         Log.i(TAG, "getLoggedInStatus: ${userLoggedMutableLiveData.value}")
         return userLoggedMutableLiveData
     }
 
-    fun getUserData(): MutableLiveData<FirebaseUser?> {
+    override fun getUserData(): MutableLiveData<FirebaseUser?> {
         return firebaseUserMutableLiveData
     }
 
-    fun register(email: String, pass: String, username: String) {
+    override fun register(email: String, pass: String, username: String) {
         auth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val profileUpdates = userProfileChangeRequest {
@@ -82,7 +82,7 @@ internal class FirebaseAuthUtil {
         }
     }
 
-    fun login(email: String, pass: String) {
+    override fun login(email: String, pass: String) {
         auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 firebaseUserMutableLiveData.postValue(auth.currentUser)
@@ -97,7 +97,7 @@ internal class FirebaseAuthUtil {
         return auth.currentUser != null
     }
 
-    fun signOut() {
+    override fun signOut() {
         auth.signOut()
         userLoggedMutableLiveData.value = checkIfUserLoggedIn()
         Log.i(TAG, auth.uid ?: "User is logged out: userLogged ${userLoggedMutableLiveData.value}")

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/signInFragment"
-        android:name="home.bthayes1.navigationbar.SignInFragment"
+        android:name="home.bthayes1.navigationbar.presentation.login.SignInFragment"
         android:label="Sign In"
         tools:layout="@layout/fragment_sign_in">
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="home.bthayes1.navigationbar.SignUpFragment"
+        android:name="home.bthayes1.navigationbar.presentation.login.SignUpFragment"
         android:label="Sign Up"
         tools:layout="@layout/fragment_sign_up">
         <action
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/messages"
-        android:name="home.bthayes1.navigationbar.MessageFragment"
+        android:name="home.bthayes1.navigationbar.presentation.messages.MessageFragment"
         android:label="Messages"
         tools:layout="@layout/fragment_message">
         <action
@@ -47,12 +47,12 @@
     </fragment>
     <fragment
         android:id="@+id/contacts"
-        android:name="home.bthayes1.navigationbar.ContactsFragment"
+        android:name="home.bthayes1.navigationbar.presentation.contacts.ContactsFragment"
         android:label="Contacts"
         tools:layout="@layout/fragment_contacts" />
     <fragment
         android:id="@+id/profile"
-        android:name="home.bthayes1.navigationbar.ProfileFragment"
+        android:name="home.bthayes1.navigationbar.presentation.profile.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>
