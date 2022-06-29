@@ -8,15 +8,22 @@ admin.initializeApp();
 // Create and Deploy Your First Cloud Functions
 // https://firebase.google.com/docs/functions/write-firebase-functions
 
-exports.helloWorld = functions.https.onRequest((request, response) => {
-  functions.logger.info("Hello logs!", {structuredData: true});
-  response.send("My favorite emoji is \u{1F43C}!");
-});
-
-exports.addUserToFirestore = functions.auth.user().onCreate((user) => {
+exports.addNewUser = functions.https.onCall((data, context) => {
   functions.logger.info("New user created!");
   const usersRef = admin.firestore().collection("users");
-  return usersRef.doc(user.uid).set({
-    displayName: user.displayName,
+  return usersRef.doc(data.uid).set({
+    username: data.username,
+    email: data.email,
+    profile_pic_url: data.profile_pic_url,
+    name: data.name,
   });
 });
+
+// exports.addUserToFirestore = functions.auth.user().onCreate((user) => {
+//   functions.logger.info("New user created!");
+//   const usersRef = admin.firestore().collection("users");
+//   return usersRef.doc(user.uid).set({
+//     displayName: user.displayName,
+//     email: user.email,
+//   });
+// });

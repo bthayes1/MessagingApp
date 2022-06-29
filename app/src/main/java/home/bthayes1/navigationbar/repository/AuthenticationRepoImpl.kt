@@ -2,16 +2,20 @@ package home.bthayes1.navigationbar.repository
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
+import com.google.firebase.functions.FirebaseFunctions
+import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
 
 
 internal class AuthenticationRepoImpl : AuthenticationRepository{
     private val firebaseUserMutableLiveData: MutableLiveData<FirebaseUser?> = MutableLiveData()
-    val userLoggedMutableLiveData = MutableLiveData<Boolean>()
+    private var functions: FirebaseFunctions = Firebase.functions
+    private val userLoggedMutableLiveData = MutableLiveData<Boolean>()
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val authMessage: MutableLiveData<String> = MutableLiveData()
     companion object{
@@ -43,7 +47,7 @@ internal class AuthenticationRepoImpl : AuthenticationRepository{
         return firebaseUserMutableLiveData
     }
 
-    override fun register(email: String, pass: String, username: String) {
+    override fun register(email: String, pass: String, username: String, name: String) {
         auth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val profileUpdates = userProfileChangeRequest {
@@ -51,11 +55,19 @@ internal class AuthenticationRepoImpl : AuthenticationRepository{
                 }
                 auth.currentUser!!.updateProfile(profileUpdates)
                     .addOnCompleteListener { task ->
+                        val currentUser = auth.currentUser!!
                         if(task.isSuccessful){
-                            printNewInfo()
+                            val userData = hashMapOf(
+                                "email" to currentUser.email,
+                                "username" to currentUser.displayName,
+                                "profile_pic_url" to currentUser.photoUrl.toString(),
+//                                "name" to name,
+                                "uid" to currentUser.uid
+                            )
+                            val result = addUser(userData)
                             firebaseUserMutableLiveData.postValue(auth.currentUser)
                             userLoggedMutableLiveData.value = checkIfUserLoggedIn()
-                            authMessage.postValue("User Created Successfully")
+                            authMessage.postValue(result.exception?.message ?: "User Created Successfully")
 
                         }else{
                             authMessage.postValue(task.exception?.message ?: "Unknown Error")
@@ -65,6 +77,20 @@ internal class AuthenticationRepoImpl : AuthenticationRepository{
                 authMessage.postValue(task.exception?.message ?: "Unknown Error")
             }
         }
+    }
+
+    override fun addUser(userData: HashMap<String, String?>): Task<String> {
+        Log.i(TAG, "Adding user... $userData")
+        return functions
+            .getHttpsCallable("addNewUser")
+            .call(userData)
+            .continueWith { task ->
+                // This continuation runs on either success or failure, but if the task
+                // has failed then result will throw an Exception which will be
+                // propagated down.
+                val result = task.result?.data as String
+                result
+            }
     }
 
     private fun printNewInfo(){

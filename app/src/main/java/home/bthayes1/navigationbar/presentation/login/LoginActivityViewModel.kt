@@ -52,8 +52,8 @@ class LoginActivityViewModel @Inject constructor(
         repositoryAuth.signOut()
     }
 
-    private fun register(email: String, pass: String, username: String) {
-        repositoryAuth.register(email, pass, username)
+    private fun register() {
+        repositoryAuth.register(email.value!!, password.value!!, username.value!!, name.value!!)
     }
 
     private fun signIn(email: String, pass: String) {
@@ -79,7 +79,7 @@ class LoginActivityViewModel @Inject constructor(
             return
         }
         Log.i(TAG, "CheckSignUpEntries: Success")
-        register(email.value!!, password.value!!, username.value!!)
+        register()
       //  Log.i(TAG, "Logged Status: ${loggedStatus.value}")
     }
 
