@@ -6,12 +6,19 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.ktx.Firebase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import home.bthayes1.navigationbar.models.MessageChannel
 import home.bthayes1.navigationbar.models.User
+import home.bthayes1.navigationbar.presentation.login.LoginActivityViewModel
 import home.bthayes1.navigationbar.repository.AuthenticationRepoImpl
+import home.bthayes1.navigationbar.repository.AuthenticationRepository
 import home.bthayes1.navigationbar.repository.FirestoreRepoImpl
+import javax.inject.Inject
 
-class MessagesViewModel : ViewModel() {
+@HiltViewModel
+class MessagesViewModel @Inject constructor(
+    private val repositoryAuth : AuthenticationRepository
+) : ViewModel() {
     /**
      * live data needed:
      *  firebaseAuth repo
@@ -20,7 +27,6 @@ class MessagesViewModel : ViewModel() {
      *  -list of contacts
      *  -User data class
      */
-    private val repositoryAuth = AuthenticationRepoImpl()
     private val firestoreRepoImpl = FirestoreRepoImpl()
     private val userDocument = MutableLiveData<DocumentReference>()
     private val messageChannels = MutableLiveData<List<MessageChannel>>()
@@ -31,6 +37,7 @@ class MessagesViewModel : ViewModel() {
     }
 
     init {
+        Log.i(TAG,"onCreate: the app context: ${repositoryAuth}")
         val currentUser = Firebase.auth.currentUser
         if (currentUser != null){
             val user = User(

@@ -10,15 +10,30 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
+import home.bthayes1.navigationbar.BaseApplication
 import home.bthayes1.navigationbar.R
 import home.bthayes1.navigationbar.presentation.login.LoginActivityViewModel
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity(R.layout.activity_login) {
     companion object{
         private const val TAG = "MainActivity"
     }
+
+    @Inject
+    lateinit var app: BaseApplication
+
+    @Inject
+    lateinit var randomString: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        Log.i(TAG,"onCreate: the app context: ${app}")
+        Log.i(TAG, "onCreate: ${randomString}")
+
 
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.fragment_container) as NavHostFragment

@@ -9,9 +9,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import home.bthayes1.navigationbar.databinding.FragmentSignInBinding
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import home.bthayes1.navigationbar.R
 
-
+@AndroidEntryPoint
 class SignInFragment : Fragment() {
 
     companion object{

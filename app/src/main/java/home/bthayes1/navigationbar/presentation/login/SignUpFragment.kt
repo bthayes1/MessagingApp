@@ -10,9 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import home.bthayes1.navigationbar.databinding.FragmentSignUpBinding
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import home.bthayes1.navigationbar.R
 
-
+@AndroidEntryPoint
 class SignUpFragment : Fragment() {
     companion object{
         private const val TAG = "SignUpFragment"

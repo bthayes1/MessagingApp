@@ -8,11 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import home.bthayes1.navigationbar.R
 import home.bthayes1.navigationbar.databinding.FragmentMessageBinding
 import home.bthayes1.navigationbar.presentation.login.LoginActivityViewModel
 
-
+@AndroidEntryPoint
 class MessageFragment : Fragment() {
 
     private var binding : FragmentMessageBinding? = null

@@ -3,12 +3,19 @@ package home.bthayes1.navigationbar.presentation.login
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.HiltAndroidApp
+import dagger.hilt.android.lifecycle.HiltViewModel
+import home.bthayes1.navigationbar.presentation.MainActivity
 import home.bthayes1.navigationbar.repository.AuthenticationRepoImpl
+import home.bthayes1.navigationbar.repository.AuthenticationRepository
 import java.util.regex.Pattern
+import javax.inject.Inject
 
+@HiltViewModel
+class LoginActivityViewModel @Inject constructor(
+    private val repositoryAuth: AuthenticationRepository
 
-class LoginActivityViewModel : ViewModel(){
-    private val repositoryAuth: AuthenticationRepoImpl = AuthenticationRepoImpl()
+)  : ViewModel(){
     val email = MutableLiveData<String>()
     val password = MutableLiveData<String>()
     val username = MutableLiveData<String>()
@@ -27,6 +34,7 @@ class LoginActivityViewModel : ViewModel(){
         username.value = ""
         name.value = ""
         passwordAcceptable.postValue(true)
+        Log.i(TAG,"onCreate: the app context: ${repositoryAuth}")
     }
     fun getMessage() : MutableLiveData<String>{
         return authMessage
