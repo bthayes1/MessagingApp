@@ -13,11 +13,13 @@ import home.bthayes1.navigationbar.presentation.login.LoginActivityViewModel
 import home.bthayes1.navigationbar.repository.AuthenticationRepoImpl
 import home.bthayes1.navigationbar.repository.AuthenticationRepository
 import home.bthayes1.navigationbar.repository.FirestoreRepoImpl
+import home.bthayes1.navigationbar.repository.FirestoreRepository
 import javax.inject.Inject
 
 @HiltViewModel
 class MessagesViewModel @Inject constructor(
-    private val repositoryAuth : AuthenticationRepository
+    private val repositoryAuth : AuthenticationRepository,
+    private val firestoreRepoImpl : FirestoreRepository
 ) : ViewModel() {
     /**
      * live data needed:
@@ -27,7 +29,6 @@ class MessagesViewModel @Inject constructor(
      *  -list of contacts
      *  -User data class
      */
-    private val firestoreRepoImpl = FirestoreRepoImpl()
     private val userDocument = MutableLiveData<DocumentReference>()
     private val messageChannels = MutableLiveData<List<MessageChannel>>()
     private val User = MutableLiveData<User>()
@@ -48,6 +49,7 @@ class MessagesViewModel @Inject constructor(
             )
             User.value = user
             userDocument.value = firestoreRepoImpl.queryUserData(user.uid)
+            Log.i(TAG,"User documentL ${userDocument.value}")
         } else { Log.wtf(TAG, "Why did this happen")}
     }
 

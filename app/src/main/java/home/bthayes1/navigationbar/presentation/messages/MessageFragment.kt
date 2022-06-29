@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import home.bthayes1.navigationbar.R
@@ -17,14 +18,13 @@ import home.bthayes1.navigationbar.presentation.login.LoginActivityViewModel
 class MessageFragment : Fragment() {
 
     private var binding : FragmentMessageBinding? = null
-    private val messageViewModel: MessagesViewModel by activityViewModels()
-    private val authViewModel: LoginActivityViewModel by activityViewModels()
+    private val messageViewModel: MessagesViewModel by viewModels()
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val fragmentBinding = FragmentMessageBinding.inflate(inflater, container, false)
         binding = fragmentBinding
         Log.i(TAG, "MessageFragment: ${messageViewModel.getLoggedIn().value}")
@@ -34,9 +34,8 @@ class MessageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding?.apply {
             viewModel = messageViewModel
-            viewModel2 = authViewModel
             btnSignOut.setOnClickListener {
-                authViewModel.signout()
+                messageViewModel.signout()
                 goToSignIn()
             }
         }

@@ -6,4 +6,6 @@ interface FirestoreRepository {
 
     fun queryUserData(uid: String) : DocumentReference
 
+    fun getAllUsers()
+
 }

@@ -23,6 +23,10 @@ internal class FirestoreRepoImpl : FirestoreRepository {
     companion object{
         private const val TAG = "FirestoreRepoImpl"
     }
+    init {
+        getAllUsers()
+    }
+
     override fun queryUserData(uid: String): DocumentReference {
         // Create a reference to the users collection
         val usersRef = db.collection("users")
@@ -30,5 +34,18 @@ internal class FirestoreRepoImpl : FirestoreRepository {
         val userDocument = usersRef.document(uid)
         Log.i(TAG, userDocument.id)
         return userDocument
+    }
+
+    override fun getAllUsers() {
+        db.collection("users")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    Log.d(TAG, "${document.id} => ${document.data}")
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Error getting documents.", exception)
+            }
     }
 }
