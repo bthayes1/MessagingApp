@@ -26,6 +26,7 @@ internal class AuthenticationRepoImpl : AuthenticationRepository{
         if (auth.currentUser != null) {
             Log.i(TAG, "User Logged In Already")
             userLoggedMutableLiveData.postValue(true)
+            firebaseUserMutableLiveData.value = auth.currentUser
             userLoggedMutableLiveData.value = checkIfUserLoggedIn()
         }
         else{
@@ -61,7 +62,7 @@ internal class AuthenticationRepoImpl : AuthenticationRepository{
                                 "email" to currentUser.email,
                                 "username" to currentUser.displayName,
                                 "profile_pic_url" to currentUser.photoUrl.toString(),
-//                                "name" to name,
+                                "name" to name,
                                 "uid" to currentUser.uid
                             )
                             val result = addUser(userData)

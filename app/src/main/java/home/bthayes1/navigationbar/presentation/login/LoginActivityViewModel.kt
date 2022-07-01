@@ -48,9 +48,6 @@ class LoginActivityViewModel @Inject constructor(
         Log.i(TAG, "userLoggedStatus : ${userLoggedStatus.value}")
         return userLoggedStatus
     }
-    fun signOut(){
-        repositoryAuth.signOut()
-    }
 
     private fun register() {
         repositoryAuth.register(email.value!!, password.value!!, username.value!!, name.value!!)

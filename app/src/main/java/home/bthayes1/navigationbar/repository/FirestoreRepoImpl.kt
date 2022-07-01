@@ -8,6 +8,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import home.bthayes1.navigationbar.models.MessageChannel
 import home.bthayes1.navigationbar.models.User
+import java.util.*
 
 internal class FirestoreRepoImpl : FirestoreRepository {
     private val db = Firebase.firestore(FirebaseApp.getInstance())
@@ -23,17 +24,28 @@ internal class FirestoreRepoImpl : FirestoreRepository {
     companion object{
         private const val TAG = "FirestoreRepoImpl"
     }
-    init {
-        getAllUsers()
-    }
 
-    override fun queryUserData(uid: String): DocumentReference {
+    override fun queryUserData(uid: String)  {
         // Create a reference to the users collection
-        val usersRef = db.collection("users")
+        //val usersRef = db.collection("users")
         // Create a query against the collection.
-        val userDocument = usersRef.document(uid)
-        Log.i(TAG, userDocument.id)
-        return userDocument
+        db.collection("users")
+            .document(uid)
+            .get()
+            .addOnSuccessListener { document ->
+                val documents = document.data
+                userDataLiveData.value = User(
+                    name = documents?.get("name") as String,
+                    email = documents["email"] as String,
+                    username = documents["username"] as String,
+                    profilePic = documents["profile_pic_url"] as String,
+                    uid = document.id
+                )
+                Log.i(TAG, " The user is: ${userDataLiveData.value}")
+            }
+            .addOnFailureListener { exception ->
+                Log.i(TAG, "Error getting documents", exception)
+            }
     }
 
     override fun getAllUsers() {
@@ -47,5 +59,9 @@ internal class FirestoreRepoImpl : FirestoreRepository {
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error getting documents.", exception)
             }
+    }
+
+    override fun getUser(): MutableLiveData<User> {
+        return userDataLiveData
     }
 }

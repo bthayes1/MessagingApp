@@ -37,21 +37,20 @@ class MessagesViewModel @Inject constructor(
         private const val TAG = "MessagesViewModel"
     }
 
-    init {
-        Log.i(TAG,"onCreate: the app context: ${repositoryAuth}")
-        val currentUser = Firebase.auth.currentUser
-        if (currentUser != null){
-            val user = User(
-                email = currentUser.email!!,
-                username = currentUser.displayName!!,
-                profilePic = null,
-                uid = currentUser.uid
-            )
-            User.value = user
-            userDocument.value = firestoreRepoImpl.queryUserData(user.uid)
-            Log.i(TAG,"User documentL ${userDocument.value}")
-        } else { Log.wtf(TAG, "Why did this happen")}
-    }
+//    init {
+//        val currentUser = Firebase.auth.currentUser
+//        if (currentUser != null){
+//            val user = User(
+//                email = currentUser.email!!,
+//                username = currentUser.displayName!!,
+//                profilePic = null,
+//                uid = currentUser.uid
+//            )
+//            User.value = user
+//            firestoreRepoImpl.queryUserData(user.uid)
+//
+//        } else { Log.wtf(TAG, "Why did this happen")}
+//    }
 
     fun signout(){
         repositoryAuth.signOut()
